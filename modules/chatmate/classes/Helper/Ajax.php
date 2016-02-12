@@ -2,7 +2,7 @@
 /**
  * 
  */
-class ChatMate_Http {
+class ChatMate_Ajax {
 
     /**
      * Contains URI
