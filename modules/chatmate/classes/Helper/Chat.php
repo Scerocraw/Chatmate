@@ -34,8 +34,12 @@ class ChatMate_Chat {
      */
     protected static function checkNodeJSChat($port) {
         // Check if the port is available
-        if(fsockopen($_SERVER['SERVER_NAME'], (int) $port)) {
-            return TRUE;
+        try {
+            if (fsockopen($_SERVER['SERVER_NAME'], (int) $port, $errno, $errstr)) {
+                return TRUE;
+            }
+        } catch (Exception $e) {
+            
         }
         return FALSE;
     }

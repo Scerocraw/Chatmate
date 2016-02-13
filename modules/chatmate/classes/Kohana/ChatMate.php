@@ -12,7 +12,7 @@ class Kohana_ChatMate extends Controller_Template {
      * @var
      */
     protected static $_requestHandleObject;
-    
+
     /**
      * Contains chatObject
      * @var type 
@@ -39,6 +39,28 @@ class Kohana_ChatMate extends Controller_Template {
      */
     public static function setRequestObject($requestObject) {
         self::$_requestObject = $requestObject;
+    }
+    
+    /**
+     * Contains the template
+     * @var type 
+     */
+    private static $_template = 'welcome.tpl';
+    
+    /**
+     * Setter template
+     * @param type $template
+     */
+    public static function setTemplate($template) {
+        self::$_template = $template;
+    }
+    
+    /**
+     * Getter template
+     * @return type
+     */
+    public static function getTemplate() {
+        return self::$_template;
     }
 
     /**
@@ -88,14 +110,23 @@ class Kohana_ChatMate extends Controller_Template {
 
         $chatObject = self::$_chatObject = new ChatMate_Chat();
         $chatObject::init();
+
+        // Get the session
+        $session = Session::instance();
         
-        // Check if node is available
-        if($chatObject::getNodeJSChatIsAvailable()) {
-            // Build network address
-            $chatAddr = $requestHandleObject::getProtocol() . '://' . $_SERVER['SERVER_NAME'] . ':3000';
-            
-            // Relocate
-            header("Location: $chatAddr");
+        // Check if we are logged in
+        if (!empty($session->get('username'))) {
+            // Check if node is available
+            if ($chatObject::getNodeJSChatIsAvailable()) {
+                // Build network address
+                $chatAddr = $requestHandleObject::getProtocol() . '://' . $_SERVER['SERVER_NAME'] . ':3000';
+
+                // Relocate
+                header("Location: $chatAddr");
+            } else {
+                // Get view
+                self::setTemplate('html/index.tpl');
+            }
         }
 
         // Done

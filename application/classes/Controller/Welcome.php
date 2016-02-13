@@ -32,11 +32,8 @@ class Controller_Welcome extends Controller_Template {
         $chatMate = ChatMate::init($this->request, $this->response);
 
         // Get view
-        $view = View::factory('welcome.tpl');
-
-        // Set template vars
-        $this->template->title = 'ChatMate';
-
+        $view = View::factory(ChatMate::getTemplate());
+        
         // Render the assigned stuff
         $this->template->content = $view->render();
     }
