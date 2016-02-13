@@ -91,6 +91,7 @@ class Model_User extends ORM {
 
                     // Update session
                     $session->set('username', $userModel->username);
+                    $session->set('userID', $userModel->id);
 
                     // Check if this is the first login
                     if (!isset($userModel->firstLogin) || $userModel->firstLogin == '0000-00-00 00:00:00') {

@@ -13,5 +13,6 @@
 
         <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
         <script src="/assets/js/bootstrap.js"></script>
+        <script src="/assets/js/chatmateClientHtml.js"></script>
     </body>
 </html>

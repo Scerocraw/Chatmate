@@ -4,6 +4,9 @@ var app = require('express')();
 // HTTP Layer
 var http = require('http').Server(app);
 
+// Request
+var request = require('request');
+
 // SocketIO
 var io = require('socket.io')(http);
 
@@ -24,6 +27,13 @@ io.on('connection', function (socket) {
     // On chat message
     socket.on('chat message', function (msg) {
         io.emit('chat message', msg);
+        
+        request.post({
+            headers: {'content-type' : 'application/x-www-form-urlencoded'},
+            url:     'http://localhost/api/addMessage',
+            body:    "message=" + msg
+        }, function(error, response, body){
+        });
     });
 });
 

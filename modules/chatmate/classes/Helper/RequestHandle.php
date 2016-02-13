@@ -185,7 +185,7 @@ class ChatMate_RequestHandle {
             $controllerToCall = new ChatMate_Http;
         } else {
             // Require AJAX layer
-            require_once MODPATH . '/chatmate/classes/Helper/RequestHandle.php';
+            require_once MODPATH . '/chatmate/classes/Helper/Ajax.php';
 
             $controllerToCall = new ChatMate_Ajax;
         }
