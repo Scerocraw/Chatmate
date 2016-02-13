@@ -8,7 +8,7 @@
         <!-- REGISTER FORM -->
         <div role="tabpanel" class="tab-pane active" id="signUp">
             <div class='col-lg-9 col-md-9 col-sm-12 col-xs-12'>
-                <form action='#' method='POST'>
+                <form action='/register' method='POST'>
                     <legend>REGISTER</legend>
                     <label for='username'>Username</label>
                     <input type='text' class='form-control' name='username' value='' placeholder='Username'/>
@@ -26,7 +26,7 @@
                         <label><input name='agb' type="checkbox" value="">I accept the <a href="#" title="AGBs">AGBs</a></label>
                     </div>
                     
-                    <button type='submit' name='submitLogin' class='btn btn-success btn-block'>Sign up for free</button>
+                    <button type='submit' name='submitRegister' class='btn btn-success btn-block'>Sign up for free</button>
                 </form>
             </div>
 
@@ -46,7 +46,7 @@
         <!-- LOGIN FORM -->
         <div role="tabpanel" class="tab-pane" id="login">
             <div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
-                <form action='/checkChat' method='POST'>
+                <form action='/login' method='POST'>
                     <legend>LOGIN</legend>
                     <label for='username'>Username or E-Mail</label>
                     <input type='text' class='form-control' name='username' value='' placeholder='Username or E-Mail'/>

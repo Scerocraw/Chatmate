@@ -1,6 +1,7 @@
 <?php
 
 defined('SYSPATH') or die('No direct script access.');
+error_reporting(E_ALL & ~E_DEPRECATED);
 
 /**
  *
@@ -92,10 +93,10 @@ class Kohana_ChatMate extends Controller_Template {
      * @return string
      */
     public static function init($requestObject, $responseObject) {
-        // Require HTTP Layer
+        // Require request layer
         require_once MODPATH . '/chatmate/classes/Helper/RequestHandle.php';
 
-        // Require HTTP Layer
+        // Require chat heleper
         require_once MODPATH . '/chatmate/classes/Helper/Chat.php';
 
         // Set request object

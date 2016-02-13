@@ -6,13 +6,13 @@
 class ChatMate_RequestHandle {
 
     /**
-     * Contains URI
+     * Contains URI 
      * @var type 
      */
     private static $_uri = NULL;
 
     /**
-     * Setter Uri
+     * Setter URI
      * @param type $uri
      */
     public static function setUri($uri) {
@@ -27,6 +27,28 @@ class ChatMate_RequestHandle {
         return self::$_uri;
     }
 
+    /**
+     * Contains URI params
+     * @var type 
+     */
+    private static $_uriParams = NULL;
+
+    /**
+     * Setter URI params
+     * @param type $uriParams
+     */
+    public static function setUriParams($uriParams) {
+        self::$_uriParams = $uriParams;
+    }
+
+    /**
+     * Getter URI params
+     * @return type
+     */
+    public static function getUriParams() {
+        return self::$_uriParams;
+    }
+    
     /**
      * Contains the bool for isAjax
      * @var type 
@@ -119,15 +141,57 @@ class ChatMate_RequestHandle {
     public static function init($requestObject) {
         // Set the postData
         self::setPostData($requestObject->post());
-
-        // Set URI
-        self::setUri($requestObject::detect_uri());
+        
+        // Sanitize the URI
+        $explodedURI = explode('/', $requestObject::detect_uri());;
+        $sanitizedArrayURI = array();
+        
+        // Iterate the exploded stuff
+        foreach($explodedURI as $part) {
+            if(!empty($part)) {
+                $sanitizedArrayURI[] = htmlentities($part);
+            }
+        }
+        
+        // Check if the first element is given
+        if(isset($sanitizedArrayURI[0])) {
+            // Set URI
+            self::setUri(htmlentities($sanitizedArrayURI[0]));
+        }
+        
+        // Check if there is anything else
+        if(isset($sanitizedArrayURI[1])) {
+            // Unset the first element (it is the uri part inside "_uri"
+            unset($sanitizedArrayURI[0]);
+            
+            // Sanitize the array
+            $sanitizedArrayURI = array_values($sanitizedArrayURI);
+            
+            // And set the uri params
+            self::setUriParams($sanitizedArrayURI);
+        }
 
         // Set protocol
         self::setProtocol(self::checkProtocol());
 
         // Set ajax bool
         self::setIsAjax(self::checkIfAjax());
+
+        if (!self::getIsAjax()) {
+            // Require HTTP layer
+            require_once MODPATH . '/chatmate/classes/Helper/Http.php';
+
+            // ChatMate
+            $controllerToCall = new ChatMate_Http;
+        } else {
+            // Require AJAX layer
+            require_once MODPATH . '/chatmate/classes/Helper/RequestHandle.php';
+
+            $controllerToCall = new ChatMate_Ajax;
+        }
+        
+        // Call the layer
+        return $controllerToCall::route(self::getUri(), self::getUriParams(), self::getPostData());
     }
 
 }
