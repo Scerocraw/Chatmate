@@ -25,6 +25,9 @@ class Model_User extends ORM {
         'lastLogin' => array(
             'max_length' => 0,
         ),
+        'isAdmin' => array(
+            'max_length' => 0,
+        )
     );
 
     /**
@@ -128,9 +131,9 @@ class Model_User extends ORM {
      * @param type $value
      * @return type
      */
-    protected static function alreadyExists($column, $value) {
+    public static function alreadyExists($column, $value) {
         // Check if the value exists inside user
-        $userNeedle = ORM::factory('user')->where($column, '=', htmlentities($value));
+        $userNeedle = ORM::factory('user')->where($column, '=', htmlentities($value))->find();
 
         // Return true or false
         return ($userNeedle->id) ? TRUE : FALSE;

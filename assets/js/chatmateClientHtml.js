@@ -13,10 +13,12 @@ var chatmateClientHtml = {
             }
         });
         
-        // Also add event for refresihing chat
-        setInterval(function() {
-            chatmateClientHtml.apiRequest('getMessages');
-        }, 500);
+        if($('.inputRow button').length > 0) {
+            // Also add event for refresihing chat
+            setInterval(function() {
+                chatmateClientHtml.apiRequest('getMessages');
+            }, 500);
+        }
     },
     /**
      * Add message

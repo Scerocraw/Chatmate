@@ -33,7 +33,7 @@ class ChatMate_Api {
 
                 // Message Offset
                 $messageOffset = $session->get('messageOffset');
-                
+
                 // Check if there is already a message offset
                 if (!isset($messageOffset) || empty($messageOffset)) {
                     $messageOffset = 0;
@@ -43,23 +43,23 @@ class ChatMate_Api {
 
                 // UserContainer
                 $userContainer = $session->get('userContainer');
-                
+
                 // Check if we have return messages
                 if (isset($messageResponse) && !empty($messageResponse) && is_array($messageResponse)) {
                     // Iterate all new messages
-                    foreach ($messageResponse as $key => $message) {                        
+                    foreach ($messageResponse as $key => $message) {
                         // Check if the user already exists
-                        if(!isset($userContainer[$message->userID])) {
+                        if (!isset($userContainer[$message->userID])) {
                             // Get the user by id
                             $user = ORM::factory('user')->where('id', '=', $message->userID)->find();
-                            
+
                             // Add user into lib
                             $userContainer[$message->userID] = $user->username;
-                            
+
                             // Update internal userLIB
                             $session->set('userContainer', $userContainer);
                         }
-                        
+
                         $date = new DateTime($message->postTime);
 
                         // Add every message into returnContainer
@@ -71,6 +71,27 @@ class ChatMate_Api {
 
                         // Update message offset
                         $session->set('messageOffset', $message->id);
+                    }
+                }
+                break;
+            case 'checkExists':
+                // Check if postData is valid for this 
+                if (isset($postData['type']) && !empty($postData['type']) && isset($postData['value']) && !empty($postData['value'])) {
+                    // Just allowed to check username and email
+                    $allowedFieldsToCheck = array('username', 'email');
+
+                    // Check if the type is inside
+                    if (in_array(strtolower(htmlentities($postData['type'])), $allowedFieldsToCheck)) {
+                        // User model
+                        $userModel = ORM::factory('user');
+
+                        // Check if already exists
+                        $exists = $userModel::alreadyExists(strtolower(htmlentities($postData['type'])), htmlentities($postData['value']));
+                        
+                        // Set return container
+                        $returnContainer = array(
+                            'exists' => $exists,
+                        );
                     }
                 }
                 break;

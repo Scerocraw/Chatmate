@@ -56,3 +56,17 @@ h1[class=chatMateHead] {
 h1[class=chatMateHead]:hover {
     cursor:pointer;
 }
+
+.benefits {
+    right: 0;
+    background-color: #FFF;
+    margin-top: -36px;
+}
+
+.existsTrue, .existsTrue:focus, .existsTrue:active {
+    border-color:red;
+}
+
+.existsFalse, .existsFalse:focus, .existsFalse:active {
+    border-color:green;
+}

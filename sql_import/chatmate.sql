@@ -14,6 +14,8 @@ CREATE TABLE `apitokens` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+INSERT INTO `apitokens` (`id`, `userID`, `apiToken`, `creationDate`) VALUES
+(3,	1,	'de2b95190b6eacab5faa3d72699e9373',	'2016-02-13 13:41:45');
 
 DROP TABLE IF EXISTS `messages`;
 CREATE TABLE `messages` (
@@ -24,6 +26,9 @@ CREATE TABLE `messages` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+INSERT INTO `messages` (`id`, `userID`, `message`, `postTime`) VALUES
+(12,	1,	'Waddap',	'2016-02-13 13:41:50'),
+(13,	1,	'TEST &lt;img src=&quot;&quot;&gt;',	'2016-02-13 13:42:43');
 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
@@ -33,10 +38,11 @@ CREATE TABLE `users` (
   `password` varchar(100) NOT NULL,
   `firstLogin` datetime NOT NULL,
   `lastLogin` datetime NOT NULL,
+  `isAdmin` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO `users` (`id`, `username`, `email`, `password`, `firstLogin`, `lastLogin`) VALUES
-(1,	'Test',	'test@test.com',	'$2y$10$g94LeyXOJY7p6z4ydQdmUO2Cali6IXkypr50bxnMyf5T2D0AWPGyW',	'0000-00-00 00:00:00',	'0000-00-00 00:00:00');
+INSERT INTO `users` (`id`, `username`, `email`, `password`, `firstLogin`, `lastLogin`, `isAdmin`) VALUES
+(1,	'Test',	'test@test.com',	'$2y$10$g94LeyXOJY7p6z4ydQdmUO2Cali6IXkypr50bxnMyf5T2D0AWPGyW',	'2016-02-13 13:41:45',	'2016-02-14 04:37:02',	0);
 
--- 2016-02-13 19:37:38
+-- 2016-02-14 12:02:28
