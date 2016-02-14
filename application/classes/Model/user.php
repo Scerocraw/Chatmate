@@ -15,8 +15,8 @@ class Model_User extends ORM {
         ),
         'email' => array(
             'max_length' => 250,
-        ),
-        'password' => array(
+        ), 
+       'password' => array(
             'max_length' => 100,
         ),
         'firstLogin' => array(
@@ -68,21 +68,21 @@ class Model_User extends ORM {
      */
     public static function login($postData) {
         // Check if postData is valud
-        if (isset($postData['username']) && !empty($postData['username']) && isset($postData['password']) && !empty($postData['password'])) {
+        if (isset($postData['usernameLogin']) && !empty($postData['usernameLogin']) && isset($postData['passwordLogin']) && !empty($postData['passwordLogin'])) {
 
             // Get userModel
             $userModel = ORM::factory('user');
 
             // Check if the entered username is a email
-            if (filter_var($postData['username'], FILTER_VALIDATE_EMAIL)) {
-                $userModel->where('email', '=', htmlentities($postData['username']))->find();
+            if (filter_var($postData['usernameLogin'], FILTER_VALIDATE_EMAIL)) {
+                $userModel->where('email', '=', htmlentities($postData['usernameLogin']))->find();
             } else {
-                $userModel->where('username', '=', htmlentities($postData['username']))->find();
+                $userModel->where('username', '=', htmlentities($postData['usernameLogin']))->find();
             }
 
             // Check if we found something
             if ($userModel->id) {
-                if (password_verify(htmlentities($postData['password']), $userModel->password)) {
+                if (password_verify(htmlentities($postData['passwordLogin']), $userModel->password)) {
                     // Get the session
                     $session = Session::instance();
                     
@@ -95,6 +95,7 @@ class Model_User extends ORM {
                     // Update session
                     $session->set('username', $userModel->username);
                     $session->set('userID', $userModel->id);
+                    $session->set('isAdmin', $userModel->isAdmin);
 
                     // Check if this is the first login
                     if (!isset($userModel->firstLogin) || $userModel->firstLogin == '0000-00-00 00:00:00') {

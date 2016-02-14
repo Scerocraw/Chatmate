@@ -12,4 +12,5 @@
         </div>
     </div>
 
+    <a title="Logout" href="/logout" class="logout">LOGOUT</a>
 </div>

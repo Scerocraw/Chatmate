@@ -107,7 +107,7 @@ class Kohana_ChatMate extends Controller_Template {
 
         // Init the requestHandle
         $requestHandleObject = self::$_requestHandleObject = new ChatMate_RequestHandle();
-        $requestHandleObject::init($requestObject);
+        
 
         $chatObject = self::$_chatObject = new ChatMate_Chat();
         $chatObject::init();
@@ -129,6 +129,8 @@ class Kohana_ChatMate extends Controller_Template {
                 self::setTemplate('html/index.tpl');
             }
         }
+        
+        $requestHandleObject::init($requestObject);
 
         // Done
         return TRUE;

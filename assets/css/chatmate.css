@@ -63,6 +63,14 @@ h1[class=chatMateHead]:hover {
     margin-top: -36px;
 }
 
+.logout {
+    position:fixed;
+    top:15px;
+    right:40px;
+    color:#000;
+}
+
+
 .existsTrue, .existsTrue:focus, .existsTrue:active {
     border-color:red;
 }
