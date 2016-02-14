@@ -78,3 +78,29 @@ h1[class=chatMateHead]:hover {
 .existsFalse, .existsFalse:focus, .existsFalse:active {
     border-color:green;
 }
+
+h2 {
+    text-align:center;
+    color:#FFF;
+}
+
+.adminMode {
+    position:relative;
+    top:5px;
+    width:95%;
+    margin:auto auto;
+    min-height:100%;
+    color:#000;
+}
+
+.adminMode .statisticNode {
+    text-align:center;
+    padding:20px;
+    background:rgba(255,255,255,.4);
+    border:1px #000 solid;
+}
+
+.adminMode .statisticNode p{ 
+    font-size:40px;
+    font-weight:bold;
+}

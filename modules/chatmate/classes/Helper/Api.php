@@ -87,13 +87,35 @@ class ChatMate_Api {
 
                         // Check if already exists
                         $exists = $userModel::alreadyExists(strtolower(htmlentities($postData['type'])), htmlentities($postData['value']));
-                        
+
                         // Set return container
                         $returnContainer = array(
                             'exists' => $exists,
                         );
                     }
                 }
+                break;
+            case 'getStatistic':
+                // Check if postData is valid for this 
+                if (isset($postData['type']) && !empty($postData['type']) && isset($postData['time']) && !empty($postData['time'])) {
+                    // Get the Session
+                    $session = Session::instance();
+
+                    // Admin needle
+                    $isAdmin = $session->get('isAdmin');
+
+                    // Check if is admin
+                    if ($isAdmin) {
+                        // Require statistic layer
+                        require_once MODPATH . '/chatmate/classes/Helper/Statistic.php';
+
+                        // Set return container
+                        $returnContainer = array(
+                            'statistic' => ChatMate_Statistic::getStatistic(htmlentities($postData['type']), htmlentities($postData['time']))
+                        );
+                    }
+                }
+
                 break;
             default:
                 break;

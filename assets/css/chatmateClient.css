@@ -27,6 +27,12 @@ body {
     width:100%;
 }
 
+.topic {
+    font-weight:bold;
+    border-bottom:1px #000 solid;
+    width:95%;
+}
+
 #messages {
     list-style: none;
 }

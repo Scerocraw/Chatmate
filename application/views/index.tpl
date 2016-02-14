@@ -8,12 +8,13 @@
         <link href="/assets/css/chatmateClient.css" rel="stylesheet" type="text/css" />
     </head>
     <body>
-        
-            {$content|default:'No content supplied'}
+
+        {$content|default:'No content supplied'}
 
         <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
         <script src="/assets/js/bootstrap.js"></script>
         <script src="/assets/js/chatmateClientHtml.js"></script>
-        <script src="/assets/js/chatmateRegisterHelper.js"></script>
+        <script src="/assets/js/chatmateRegisterHelper.js"></script>        
+        <script src="/assets/js/chatmateAdmin.js"></script>
     </body>
 </html>

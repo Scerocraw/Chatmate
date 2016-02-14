@@ -1,6 +1,6 @@
 <div class="chatContainer">
     <ul id="messages">
-        <li>Welcome and thanks for using ChatMate (HTML) Version</li>
+        <li class="topic">Welcome and thanks for using ChatMate (HTML) Version</li>
     </ul>
 
     <div class="row inputRow">
